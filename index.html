@@ -469,8 +469,6 @@ footer .kicker a:hover{color:var(--bone)}
   <div class="flashframe" id="flash" aria-hidden="true"></div>
 
   <div class="hud" aria-hidden="true">
-    <div class="tl"><span class="rec"></span><span class="kicker">REC &middot; SHOWREEL</span></div>
-    <div class="tr"><span class="kicker" id="tc">00:00:00:00</span></div>
     <div class="br" id="ticks"></div>
   </div>
 
@@ -818,12 +816,6 @@ const CONFIG = {
   }), {threshold:.05}).observe(stage);
 
   // broadcast timecode
-  const tc = document.getElementById('tc'); const t0 = Date.now();
-  const p2 = n => String(n).padStart(2,'0');
-  setInterval(()=>{
-    const ms = Date.now() - t0, s = Math.floor(ms/1000);
-    tc.textContent = p2(Math.floor(s/3600)) + ':' + p2(Math.floor(s/60)%60) + ':' + p2(s%60) + ':' + p2(Math.floor((ms%1000)/40));
-  }, 40);
 })();
 
 
