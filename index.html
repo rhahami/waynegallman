@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wayne Gallman II — Brand Partnerships &amp; Speaking</title>
+<meta name="description" content="Wayne Gallman II. National champion at Clemson, 2017 NFL Draft pick, six-year pro. Brand partnerships, speaking engagements, and appearances.">
+<meta property="og:title" content="Wayne Gallman II">
+<meta property="og:description" content="National champion. NFL running back. Partner to brands that want an audience that actually listens.">
+<meta property="og:image" content="assets/img/og.jpg">
+<meta name="theme-color" content="#08090A">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+/* ============================================================
+   WAYNE GALLMAN II — brand site
+   Aesthetic: broadcast film print. Near-black, heavy grain,
+   condensed sports-editorial type, one signal-orange accent.
+   ============================================================ */
+
+:root{
+  --ink:#08090A;
+  --ink-2:#0D0F11;
+  --ink-3:#14171A;
+  --line:rgba(237,233,225,.14);
+  --line-soft:rgba(237,233,225,.07);
+  --bone:#EDE9E1;
+  --bone-dim:#8E8B84;
+  --flare:#FF3D14;
+  --flare-soft:rgba(255,61,20,.14);
+  --amber:#FFB03A;
+
+  --display:'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --body:'Archivo', 'Helvetica Neue', sans-serif;
+  --mono:'Azeret Mono', ui-monospace, monospace;
+
+  --gut: clamp(20px, 4.5vw, 76px);
+  --ease: cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:92px; -webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--ink); color:var(--bone);
+  font-family:var(--body); font-size:16px; line-height:1.6;
+  overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+img,video{display:block; max-width:100%}
+a{color:inherit; text-decoration:none}
+button,input,textarea,select{font:inherit; color:inherit}
+
+/* ---------- global film grain + vignette ---------- */
+.filmlayer{position:fixed; inset:-120px; pointer-events:none; z-index:740}
+.filmlayer::before{
+  content:''; position:absolute; inset:0; opacity:.13; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation:grain 700ms steps(2) infinite;
+}
+.filmlayer::after{
+  content:''; position:absolute; inset:120px;
+  box-shadow:inset 0 0 220px 60px rgba(0,0,0,.75);
+}
+@keyframes grain{
+  0%{transform:translate(0,0)} 25%{transform:translate(-8px,5px)}
+  50%{transform:translate(6px,-7px)} 75%{transform:translate(-4px,-4px)}
+  100%{transform:translate(0,0)}
+}
+@media (prefers-reduced-motion:reduce){
+  .filmlayer::before{animation:none}
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important}
+}
+
+/* ---------- type primitives ---------- */
+.kicker{
+  font-family:var(--mono); font-size:10px; font-weight:400;
+  letter-spacing:.28em; text-transform:uppercase; color:var(--bone-dim);
+}
+.kicker .dot{color:var(--flare)}
+h1,h2,h3{margin:0; font-family:var(--display); font-weight:900;
+  line-height:.82; letter-spacing:-.005em; text-transform:uppercase;}
+.h-mega{font-size:clamp(38px, 8.4vw, 128px)}
+.h-big{font-size:clamp(44px, 8vw, 112px)}
+.h-mid{font-size:clamp(30px, 3.6vw, 52px)}
+p{margin:0 0 1.05em}
+.lede{font-size:clamp(17px,1.5vw,21px); line-height:1.55; color:#D8D4CC; max-width:60ch}
+.muted{color:var(--bone-dim)}
+
+.rule{height:1px; background:var(--line); border:0; margin:0}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:800;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:16px var(--gut);
+  transition:background .5s var(--ease), padding .5s var(--ease), border-color .5s;
+  border-bottom:1px solid transparent;
+}
+.nav.is-stuck{
+  background:rgba(8,9,10,.82); backdrop-filter:blur(14px) saturate(140%);
+  border-bottom-color:var(--line-soft); padding-top:11px; padding-bottom:11px;
+}
+.mark{display:flex; align-items:center; gap:10px}
+.mark b{
+  font-family:var(--display); font-weight:900; font-size:22px;
+  letter-spacing:.02em; line-height:1;
+}
+.mark .chip{
+  font-family:var(--mono); font-size:9px; letter-spacing:.2em;
+  border:1px solid var(--line); padding:4px 6px 3px; color:var(--bone-dim);
+}
+.navlinks{display:flex; align-items:center; gap:clamp(14px,2.4vw,34px)}
+.navlinks a{
+  font-family:var(--mono); font-size:11px; letter-spacing:.19em;
+  text-transform:uppercase; color:var(--bone-dim); position:relative; padding:6px 0;
+  transition:color .3s, text-shadow .3s; text-shadow:0 1px 12px rgba(0,0,0,.9);
+}
+.nav.is-stuck .navlinks a, .nav.is-stuck .mark b{text-shadow:none}
+.mark b{text-shadow:0 1px 12px rgba(0,0,0,.9)}
+.navlinks a::after{
+  content:''; position:absolute; left:0; bottom:0; height:1px; width:0;
+  background:var(--flare); transition:width .45s var(--ease);
+}
+.navlinks a:hover{color:var(--bone)}
+.navlinks a:hover::after{width:100%}
+.btn{
+  display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+  font-family:var(--mono); font-size:11px; letter-spacing:.19em; text-transform:uppercase;
+  background:var(--flare); color:#0A0A0A; border:1px solid var(--flare);
+  padding:11px 18px; transition:transform .35s var(--ease), background .3s, color .3s;
+  font-weight:500; box-shadow:0 6px 30px rgba(0,0,0,.45);
+}
+.btn:hover{transform:translateY(-2px); background:#FF5730}
+.btn.ghost{background:rgba(8,9,10,.5); backdrop-filter:blur(6px); color:var(--bone); border-color:var(--line)}
+.btn.ghost:hover{background:var(--bone); color:var(--ink); border-color:var(--bone)}
+@media (max-width:760px){
+  .navlinks .nav-hide{display:none}
+  .nav{padding:12px var(--gut)}
+  .mark b{font-size:14px}
+  .mark .chip{display:none}
+  .navlinks{gap:15px}
+  .navlinks a{font-size:9.5px; letter-spacing:.13em; white-space:nowrap}
+  .navlinks a .lg{display:none}
+}
+
+/* ============================================================
+   HERO MONTAGE
+   ============================================================ */
+.hero{position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end}
+.montage{
+  position:absolute; inset:0; overflow:hidden; background:#0A0B0C;
+}
+.montage .cut{
+  position:absolute; inset:0; opacity:0;
+  transition:opacity .09s linear;
+  will-change:opacity, transform;
+}
+.montage .cut.on{opacity:1}
+.montage .cut video,.montage .cut .fallback{
+  width:100%; height:100%; object-fit:cover;
+  filter:contrast(1.03) saturate(1.12) brightness(1.07);
+  transform:scale(1.045);
+  transition:transform 4.5s linear;
+}
+.montage .cut.on video,.montage .cut.on .fallback{transform:scale(1.10)}
+.montage .cut.punch video,.montage .cut.punch .fallback{transform:scale(1.16)}
+.fallback{
+  display:grid; place-items:center; position:relative;
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgba(255,61,20,.20), transparent 60%),
+    radial-gradient(100% 100% at 80% 90%, rgba(255,176,58,.13), transparent 55%),
+    linear-gradient(160deg,#101317,#08090A 70%);
+}
+.fallback span{
+  font-family:var(--mono); font-size:11px; letter-spacing:.26em;
+  color:rgba(237,233,225,.42); text-transform:uppercase; text-align:center; padding:0 20px;
+}
+/* letterbox bars + gradient scrim */
+.montage::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(to bottom, rgba(8,9,10,.62) 0%, rgba(8,9,10,0) 20%, rgba(8,9,10,0) 48%, rgba(8,9,10,.88) 96%),
+    linear-gradient(to right, rgba(8,9,10,.34) 0%, rgba(8,9,10,0) 40%),
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.10) 0 1px, transparent 1px 3px);
+}
+.flashframe{
+  position:absolute; inset:0; background:var(--bone); opacity:0; pointer-events:none; z-index:3;
+  mix-blend-mode:overlay;
+}
+.flashframe.fire{animation:flash .16s ease-out}
+@keyframes flash{0%{opacity:.62} 100%{opacity:0}}
+
+/* HUD */
+.hud{position:absolute; inset:0; pointer-events:none; z-index:4}
+.hud .kicker{text-shadow:0 1px 10px rgba(0,0,0,.95); color:#CFCBC3}
+.hud .tl{position:absolute; top:96px; left:var(--gut); display:flex; align-items:center; gap:9px}
+.rec{width:8px; height:8px; border-radius:50%; background:var(--flare); animation:blink 1.4s steps(1) infinite}
+@keyframes blink{0%,55%{opacity:1} 56%,100%{opacity:.15}}
+.hud .tr{position:absolute; top:96px; right:var(--gut); text-align:right}
+.hud .br{
+  position:absolute; bottom:22px; right:var(--gut); display:flex; gap:5px; align-items:center;
+}
+.tick{width:16px; height:2px; background:rgba(237,233,225,.22); transition:background .2s}
+.tick.on{background:var(--flare)}
+@media (max-width:760px){ .hud .tl,.hud .tr{top:78px} .hud .tr{display:none} }
+
+.hero-copy{
+  position:relative; z-index:5; padding:clamp(44px,9vh,104px) var(--gut) clamp(30px,5vh,64px);
+  display:grid; gap:20px;
+  background:linear-gradient(to top,
+    rgba(8,9,10,.95) 0%, rgba(8,9,10,.84) 38%, rgba(8,9,10,.44) 70%, rgba(8,9,10,0) 100%);
+}
+.hero-copy .h-mega{
+  color:var(--bone);
+  text-shadow:0 10px 60px rgba(0,0,0,.65);
+}
+.hero-copy .h-mega .ii{color:var(--flare); -webkit-text-stroke:0}
+.hero-row{
+  display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
+  gap:24px; border-top:1px solid var(--line); padding-top:20px;
+}
+.hero-row .lede{max-width:46ch; font-size:clamp(15px,1.35vw,18px); color:#CFCAC2; margin:0}
+.hero-actions{display:flex; gap:12px; flex-wrap:wrap}
+
+/* staged entrance */
+@media (max-width:760px){
+  .hero{min-height:auto; display:block; padding-top:52px}
+  .montage{position:relative; inset:auto; width:100%; aspect-ratio:16/9}
+  .flashframe,.hud{height:calc(52px + 56.25vw)}
+  .hud .tl{top:auto; bottom:12px}
+  .hud .tr{display:none}
+  .hud .br{bottom:10px}
+  .hero-copy{background:none; padding-top:26px}
+  .montage::after{background:linear-gradient(to bottom, rgba(8,9,10,.55) 0%, rgba(8,9,10,0) 30%, rgba(8,9,10,0) 60%, rgba(8,9,10,.85) 100%),
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.16) 0 1px, transparent 1px 3px)}
+}
+.rise{opacity:0; transform:translateY(26px); animation:rise .95s var(--ease) forwards}
+@keyframes rise{to{opacity:1; transform:none}}
+
+/* ---------- filmstrip marquee ---------- */
+.strip{
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  background:var(--ink-2); overflow:hidden; position:relative;
+}
+.strip-track{display:flex; gap:0; width:max-content; animation:slide 46s linear infinite}
+.strip:hover .strip-track{animation-play-state:paused}
+@keyframes slide{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+.frame{
+  position:relative; width:clamp(150px,17vw,250px); aspect-ratio:16/10;
+  border-right:1px solid var(--line-soft); overflow:hidden; flex:0 0 auto;
+}
+.frame video,.frame .fallback{width:100%;height:100%;object-fit:cover;filter:contrast(1.02) saturate(1.04) brightness(.86); transition:filter .5s}
+.frame:hover video,.frame:hover .fallback{filter:contrast(1.02) saturate(1.1)}
+.frame b{
+  position:absolute; left:9px; bottom:7px; font-family:var(--mono); font-size:9px;
+  letter-spacing:.2em; font-weight:400; color:var(--bone); text-shadow:0 1px 6px #000;
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section{position:relative}
+.wrap{padding:clamp(64px,9vh,132px) var(--gut)}
+.sechead{display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(28px,4vh,54px); flex-wrap:wrap}
+.sechead .num{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--flare)}
+
+/* ---------- social stats ---------- */
+.stats{background:var(--ink-2); border-bottom:1px solid var(--line)}
+.statgrid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  border-top:1px solid var(--line);
+}
+.stat{
+  padding:clamp(26px,4vh,46px) clamp(18px,2.4vw,34px);
+  border-right:1px solid var(--line); position:relative; overflow:hidden;
+}
+.stat:last-child{border-right:0}
+.stat::before{
+  content:''; position:absolute; left:0; top:0; height:2px; width:0; background:var(--flare);
+  transition:width .8s var(--ease);
+}
+.stat:hover::before{width:100%}
+.stat .n{
+  font-family:var(--display); font-weight:900; font-size:clamp(46px,6.4vw,88px);
+  line-height:.85; display:block; letter-spacing:-.01em;
+}
+.stat .plat{display:flex; align-items:center; gap:9px; margin-bottom:14px}
+.stat .plat svg{width:15px; height:15px; fill:var(--bone-dim); transition:fill .3s}
+.stat:hover .plat svg{fill:var(--flare)}
+.stat .n.empty{font-size:clamp(26px,2.6vw,38px); color:var(--bone-dim); opacity:.55}
+.stat .sub{font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--bone-dim); margin-top:12px; text-transform:uppercase}
+.stat.total{background:linear-gradient(150deg, rgba(255,61,20,.10), transparent 70%)}
+.stat.total .n{color:var(--flare)}
+@media (max-width:640px){ .stat{border-right:0; border-bottom:1px solid var(--line)} }
+
+/* ---------- credential ticker ---------- */
+.ticker{background:var(--flare); color:#0A0A0A; overflow:hidden; padding:11px 0}
+.ticker-track{display:flex; gap:0; width:max-content; animation:slide 34s linear infinite}
+.ticker span{
+  font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.2em;
+  text-transform:uppercase; padding:0 26px; white-space:nowrap; display:inline-flex; gap:26px;
+}
+.ticker span::after{content:'///'; opacity:.45}
+
+/* ---------- photo slots ---------- */
+.photo{position:relative; overflow:hidden; background:var(--ink-3)}
+.photo img{width:100%; height:100%; object-fit:cover; display:block;
+  filter:contrast(1.06) saturate(.9); transition:transform 1.1s var(--ease), filter .6s}
+.photo:hover img{transform:scale(1.045); filter:none}
+.photo.is-empty::after{
+  content:attr(data-slot); position:absolute; inset:0; display:grid; place-items:center;
+  text-align:center; padding:20px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(237,233,225,.36);
+  background:
+    radial-gradient(90% 80% at 40% 20%, rgba(255,61,20,.12), transparent 60%),
+    repeating-linear-gradient(45deg, rgba(237,233,225,.035) 0 2px, transparent 2px 9px),
+    var(--ink-3);
+  border:1px solid var(--line-soft);
+}
+.photo.is-empty img{display:none}
+.photo .cap{
+  position:absolute; left:0; bottom:0; padding:6px 11px 7px;
+  background:rgba(8,9,10,.78); backdrop-filter:blur(5px);
+  font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone);
+}
+
+/* ---------- family block ---------- */
+.famhead{margin:36px 0 14px; padding-top:26px; border-top:1.5px solid var(--line); font-size:clamp(26px,3vw,42px)}
+.famrow{display:grid; grid-template-columns:1fr 1fr; gap:11px; margin:26px 0 4px}
+.famrow .photo{aspect-ratio:4/5}
+@media (max-width:520px){ .famrow{grid-template-columns:1fr} }
+
+/* ---------- photo row ---------- */
+.photorow{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:11px}
+.photorow .photo{aspect-ratio:4/3}
+
+/* ---------- full-bleed photo band ---------- */
+.bandphoto{position:relative; width:100%; aspect-ratio:21/9; overflow:hidden;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--ink-2)}
+@media (max-width:760px){ .bandphoto{aspect-ratio:16/10} }
+.bandphoto img{width:100%; height:100%; object-fit:cover; filter:contrast(1.04) saturate(1.06)}
+.bandphoto::after{content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to right, rgba(8,9,10,.86) 0%, rgba(8,9,10,.34) 46%, rgba(8,9,10,0) 78%),
+             linear-gradient(to top, rgba(8,9,10,.72), transparent 46%)}
+.bandphoto .cap-in{position:absolute; left:var(--gut); right:var(--gut); bottom:clamp(18px,4vh,44px); z-index:2}
+.bandphoto .cap-in h3{font-size:clamp(24px,3.6vw,58px); margin-bottom:10px}
+.bandphoto .cap-in .kicker{color:#C6C1B9}
+
+/* ---------- brands ---------- */
+.split{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(24px,4vw,70px); align-items:start}
+@media (max-width:900px){ .split{grid-template-columns:1fr} }
+.photo-stack{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.photo-stack .photo:first-child{grid-column:1 / -1; aspect-ratio:16/9}
+.photo-stack .photo{aspect-ratio:16/10}
+
+.offer{list-style:none; margin:26px 0 0; padding:0; border-top:1px solid var(--line)}
+.offer li{
+  display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start;
+  padding:18px 0; border-bottom:1px solid var(--line); transition:padding-left .4s var(--ease);
+}
+.offer li:hover{padding-left:10px}
+.offer .idx{font-family:var(--mono); font-size:10px; color:var(--flare); letter-spacing:.16em; padding-top:5px}
+.offer h4{margin:0 0 4px; font-family:var(--display); font-weight:800; font-size:24px; text-transform:uppercase; letter-spacing:.01em}
+.offer p{margin:0; font-size:14.5px; color:var(--bone-dim); line-height:1.55}
+
+/* ---------- speaking ---------- */
+.speaking{background:var(--ink-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+.card{background:var(--ink); padding:clamp(24px,3vw,38px); position:relative; transition:background .45s}
+.card:hover{background:var(--ink-3)}
+.card .no{font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:var(--flare); display:block; margin-bottom:20px}
+.card h3{font-size:clamp(26px,2.5vw,36px); margin-bottom:12px}
+.card p{font-size:14.5px; color:var(--bone-dim); margin:0; line-height:1.6}
+.formats{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px}
+.pill{
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  border:1px solid var(--line); padding:8px 13px; color:var(--bone-dim); transition:.3s;
+}
+.pill:hover{border-color:var(--flare); color:var(--bone)}
+
+/* ---------- about ---------- */
+.bio{display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(24px,4vw,64px); align-items:start}
+@media (max-width:900px){ .bio{grid-template-columns:1fr} }
+.bio .portrait{aspect-ratio:3/4; position:sticky; top:100px}
+@media (max-width:900px){ .bio .portrait{position:static} }
+.bio p{font-size:16.5px; line-height:1.7; color:#C9C5BD; max-width:62ch}
+.bio p strong{color:var(--bone); font-weight:600}
+.timeline{list-style:none; padding:0; margin:34px 0 0; border-top:1px solid var(--line)}
+.timeline li{
+  display:grid; grid-template-columns:76px 1fr; gap:18px; padding:15px 0;
+  border-bottom:1px solid var(--line-soft); font-size:14.5px;
+}
+.timeline .yr{font-family:var(--mono); font-size:11px; color:var(--flare); letter-spacing:.12em; padding-top:3px}
+.timeline .ev{color:#CFCAC2}
+.timeline .ev em{font-style:normal; color:var(--bone-dim)}
+
+.numgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:34px}
+.numgrid div{background:var(--ink); padding:22px 20px}
+.numgrid b{display:block; font-family:var(--display); font-weight:900; font-size:clamp(34px,3.6vw,50px); line-height:.85}
+.numgrid small{font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--bone-dim); display:block; margin-top:10px}
+
+/* ---------- contact ---------- */
+.contact{background:
+  radial-gradient(120% 70% at 15% 0%, rgba(255,61,20,.09), transparent 60%), var(--ink-2);
+  border-top:1px solid var(--line)}
+form{display:grid; gap:0; border-top:1px solid var(--line)}
+.field{position:relative; border-bottom:1px solid var(--line)}
+.field.half{border-bottom:1px solid var(--line)}
+.frow{display:grid; grid-template-columns:1fr 1fr; gap:0}
+.frow .field:first-child{border-right:1px solid var(--line)}
+@media (max-width:700px){ .frow{grid-template-columns:1fr} .frow .field:first-child{border-right:0} }
+.field label{
+  position:absolute; top:16px; left:0; pointer-events:none;
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--bone-dim); transition:.35s var(--ease);
+}
+.field input,.field textarea,.field select{
+  width:100%; background:transparent; border:0; outline:0; padding:34px 14px 15px 0;
+  font-size:16px; color:var(--bone); font-family:var(--body); border-radius:0;
+}
+.frow .field:first-child input{padding-right:20px}
+.field textarea{resize:vertical; min-height:118px}
+.field select{appearance:none; cursor:pointer; color:var(--bone)}
+.field select option{background:var(--ink-2); color:var(--bone)}
+.field::after{content:''; position:absolute; left:0; bottom:-1px; height:1px; width:0; background:var(--flare); transition:width .5s var(--ease)}
+.field:focus-within::after{width:100%}
+.field:focus-within label{color:var(--flare)}
+.formfoot{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; padding-top:24px}
+.formnote{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--bone-dim); text-transform:uppercase}
+.formstatus{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase}
+.formstatus.ok{color:var(--amber)}
+.formstatus.err{color:var(--flare)}
+.hp{position:absolute; left:-9999px; opacity:0}
+
+/* ---------- footer ---------- */
+footer{padding:34px var(--gut); display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; align-items:center; border-top:1px solid var(--line)}
+footer .kicker a:hover{color:var(--bone)}
+.socials{display:flex; gap:16px}
+.socials a{display:grid; place-items:center; width:34px; height:34px; border:1px solid var(--line); transition:.3s}
+.socials a:hover{border-color:var(--flare); background:var(--flare-soft)}
+.socials svg{width:14px; height:14px; fill:var(--bone-dim); transition:fill .3s}
+.socials a:hover svg{fill:var(--bone)}
+
+/* ---------- scroll reveal ---------- */
+.rv{opacity:0; transform:translateY(30px); transition:opacity .9s var(--ease), transform .9s var(--ease)}
+.rv.in{opacity:1; transform:none}
+.rv.d1{transition-delay:.09s} .rv.d2{transition-delay:.18s} .rv.d3{transition-delay:.27s}
+</style>
+</head>
+<body>
+<div class="filmlayer" aria-hidden="true"></div>
+
+<!-- ============================== NAV ============================== -->
+<nav class="nav" id="nav">
+  <a class="mark" href="#top">
+    <b>WAYNE GALLMAN <span style="color:var(--flare)">II</span></b>
+    <span class="chip">RB</span>
+  </a>
+  <div class="navlinks">
+    <a href="#brands">Brands</a>
+    <a href="#speaking">Speaking<span class="lg"> Gigs</span></a>
+    <a href="#about">About</a>
+    <a class="btn nav-hide" href="#contact">Book Wayne</a>
+  </div>
+</nav>
+
+<!-- ============================== HERO MONTAGE ============================== -->
+<header class="hero" id="top">
+  <div class="montage" id="montage" aria-label="Highlight montage"></div>
+  <div class="flashframe" id="flash" aria-hidden="true"></div>
+
+  <div class="hud" aria-hidden="true">
+    <div class="tl"><span class="rec"></span><span class="kicker">REC &middot; SHOWREEL</span></div>
+    <div class="tr"><span class="kicker" id="tc">00:00:00:00</span></div>
+    <div class="br" id="ticks"></div>
+  </div>
+
+  <div class="hero-copy">
+    <div class="rise" style="animation-delay:.15s">
+      <span class="kicker" style="color:#B9B5AD">Running Back <span class="dot">&bull;</span> National Champion <span class="dot">&bull;</span> Six-Year Pro</span>
+    </div>
+    <h1 class="h-mega rise" style="animation-delay:.28s">Wayne<br>Gallman <span class="ii">II</span></h1>
+    <div class="hero-row rise" style="animation-delay:.44s">
+      <p class="lede">Clemson national champion. Fourth-round pick of the New York Giants. Now partnering with brands and stages that want a voice built on the part nobody films &mdash; the work between the highlights.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#contact">Start a Partnership</a>
+        <a class="btn ghost" href="#speaking">Speaking Topics</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== FILMSTRIP ============================== -->
+<div class="strip" aria-hidden="true"><div class="strip-track" id="strip"></div></div>
+
+<!-- ============================== SOCIAL STATS ============================== -->
+<section class="stats" id="reach">
+  <div class="wrap" style="padding-bottom:0">
+    <div class="sechead rv">
+      <span class="num">01</span>
+      <h2 class="h-mid">The Audience</h2>
+      <span class="kicker" style="margin-left:auto" id="reach-updated"></span>
+    </div>
+  </div>
+  <div class="statgrid rv" id="statgrid"></div>
+</section>
+
+<!-- ============================== TICKER ============================== -->
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+<!-- ============================== BRANDS ============================== -->
+<section id="brands">
+  <div class="wrap">
+    <div class="sechead rv"><span class="num">02</span><h2 class="h-big">Brands</h2></div>
+    <div class="split">
+      <div class="rv">
+        <p class="lede">Wayne has spent his career in the rooms brands are trying to reach &mdash; college football's biggest stage, an NFL locker room, and the grind of the practice squad. That range is the product. He can speak to the kid chasing a scholarship, the trainer selling recovery, and the executive who wants a partner who shows up on time and on message.</p>
+        <p class="lede">Partnerships are built around real usage and real storytelling. No copy-paste captions, no posts that read like an ad read.</p>
+        <p class="lede">Fit comes before fee. Wayne takes on brands whose mission lines up with his own values, and turns down the ones that don’t.</p>
+
+        <ul class="offer">
+          <li><span class="idx">01</span><div><h4>Social Campaigns</h4><p>Native short-form across Instagram, X and LinkedIn. Concept, shoot and edit handled &mdash; you approve, we post.</p></div></li>
+          <li><span class="idx">02</span><div><h4>Product &amp; Apparel</h4><p>Training, recovery, nutrition, footwear and lifestyle. Long-term ambassadorships preferred over one-off posts.</p></div></li>
+          <li><span class="idx">03</span><div><h4>Appearances &amp; Activations</h4><p>Retail openings, camps, trade shows, meet-and-greets, media days and hospitality suites.</p></div></li>
+          <li><span class="idx">04</span><div><h4>Youth &amp; Community</h4><p>Camps and clinics with genuine reach into high school and travel-sports networks across Georgia and the Carolinas.</p></div></li>
+          <li><span class="idx">05</span><div><h4>Licensing &amp; Likeness</h4><p>Name, image and likeness for campaigns, packaging, retail and in-store creative.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="photo-stack rv d1">
+        <div class="photo" data-slot="brands-01.jpg"><img src="assets/img/brands-01.jpg" alt="Wayne Gallman stiff-arms a defender"><span class="cap">Giants &mdash; No. 22</span></div>
+        <div class="photo" data-slot="brands-02.jpg"><img src="assets/img/brands-02.jpg" alt="Wayne Gallman celebrating on the sideline"></div>
+        <div class="photo" data-slot="brands-03.jpg"><img src="assets/img/brands-03.jpg" alt="Wayne Gallman with Saquon Barkley"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="bandphoto rv" data-slot="band-01.jpg">
+  <img src="assets/img/band-01.jpg" alt="Wayne Gallman taking the field at MetLife Stadium">
+  <div class="cap-in"><span class="kicker">MetLife Stadium <span class="dot">&bull;</span> East Rutherford, NJ</span></div>
+</div>
+
+<!-- ============================== SPEAKING ============================== -->
+<section class="speaking" id="speaking">
+  <div class="wrap">
+    <div class="sechead rv"><span class="num">03</span><h2 class="h-big">Speaking Gigs</h2></div>
+    <p class="lede rv" style="margin-bottom:clamp(30px,4vh,52px)">Wayne's story isn't a straight line, and that's why it lands. National title at 22. Drafted. Started. Cut. Signed. Cut again. Practice squad. Back on the field. He talks about the parts of a career that don't make the highlight reel &mdash; which is exactly the part most rooms need to hear.</p>
+
+    <div class="photorow rv" style="margin-bottom:clamp(32px,4.5vh,56px)">
+      <div class="photo" data-slot="speak-01.jpg"><img src="assets/img/speak-01.jpg" alt="Wayne Gallman at a College Football Playoff press conference"><span class="cap">CFP Semifinal presser</span></div>
+      <div class="photo" data-slot="speak-02.jpg"><img src="assets/img/speak-02.jpg" alt="Wayne Gallman at a Giants press conference"><span class="cap">Giants podium</span></div>
+      <div class="photo" data-slot="speak-03.jpg"><img src="assets/img/speak-03.jpg" alt="Wayne Gallman being interviewed on camera"><span class="cap">On camera</span></div>
+    </div>
+
+    <div class="cards rv">
+      <div class="card"><span class="no">TOPIC 01</span><h3>Staying Ready<br>When You're<br>Not Playing</h3><p>What it takes to prepare at full intensity for a game you may never be called into &mdash; and how that discipline transfers to any team.</p></div>
+      <div class="card"><span class="no">TOPIC 02</span><h3>Championship<br>Culture</h3><p>Inside a program that beat Alabama for a national title: standards, accountability, and what separated that locker room from every other one.</p></div>
+      <div class="card"><span class="no">TOPIC 03</span><h3>The Business<br>of Being<br>an Athlete</h3><p>Contracts, cuts, brand-building and life after the roster spot. A candid look at treating a playing career like a business.</p></div>
+      <div class="card"><span class="no">TOPIC 04</span><h3>Youth Sports<br>&amp; the Long<br>Game</h3><p>For parents, coaches and young athletes: recruiting, development, and the difference between pressure and preparation.</p></div>
+    </div>
+
+    <div class="formats rv d1">
+      <span class="pill">Keynote</span>
+      <span class="pill">Fireside Chat</span>
+      <span class="pill">Panel</span>
+      <span class="pill">Corporate Team Event</span>
+      <span class="pill">School Assembly</span>
+      <span class="pill">Youth Camp / Clinic</span>
+      <span class="pill">Podcast &amp; Media</span>
+      <span class="pill">Virtual</span>
+    </div>
+  </div>
+</section>
+
+<div class="bandphoto rv" data-slot="band-02.jpg">
+  <img src="assets/img/band-02.jpg" alt="Wayne Gallman in the national championship game against Alabama">
+  <div class="cap-in">
+    <h3 class="h-mid">National<br>Champion</h3>
+    <span class="kicker">January 2017 <span class="dot">&bull;</span> Clemson 35, Alabama 31</span>
+  </div>
+</div>
+
+<!-- ============================== ABOUT ============================== -->
+<section id="about">
+  <div class="wrap">
+    <div class="sechead rv"><span class="num">04</span><h2 class="h-big">About</h2></div>
+    <div class="bio">
+      <div class="photo portrait rv" data-slot="portrait.jpg"><img src="assets/img/portrait.jpg" alt="Wayne Gallman II"><span class="cap">Wayne Gallman II</span></div>
+      <div class="rv d1">
+        <p>Wayne Gallman II grew up in Loganville, Georgia and played at Grayson High School before signing with Clemson, where he redshirted a year and then rewrote his role in the offense. He ran for <strong>1,514 yards and 13 touchdowns</strong> as a redshirt sophomore, added <strong>1,133 yards and 17 touchdowns</strong> the following season, and was named second-team All-ACC twice.</p>
+        <p>In January 2017 he finished the job Clemson had been chasing: a <strong>College Football Playoff National Championship</strong>, won 35&ndash;31 over Alabama. Months later the <strong>New York Giants</strong> took him in the fourth round of the NFL Draft.</p>
+        <p>He spent four seasons in New York, and his 2020 campaign was his most productive as a pro &mdash; <strong>682 rushing yards and 6 touchdowns</strong> on 147 carries. From there came the part of football nobody puts on a poster: stops with San Francisco, Atlanta and Minnesota, practice-squad time in Kansas City and Seattle, and a return to the field with the St. Louis BattleHawks.</p>
+        <p>Wayne knows what it looks like to be the guy everyone's watching, and what it looks like to be the guy fighting to be seen. Today he partners with brands and speaks to rooms that want something more useful than a highlight reel.</p>
+
+        <h3 class="h-mid famhead">Husband.<br>Father.</h3>
+        <p>Away from football, that's the part that comes first. Everything else gets built around it.</p>
+        <p>It's also how he picks who to work with. Wayne partners with brands whose mission lines up with his own morals and values &mdash; rooted in family, belief and prayer &mdash; and passes on the ones that don't. The brands that do fit get someone who means what he says on camera.</p>
+
+        <div class="famrow rv">
+          <div class="photo" data-slot="family-01.jpg"><img src="assets/img/family-01.jpg" alt="Wayne Gallman with his wife"></div>
+          <div class="photo" data-slot="family-02.jpg"><img src="assets/img/family-02.jpg" alt="Wayne Gallman with his wife"></div>
+        </div>
+
+        <div class="photo rv" data-slot="about-01.jpg" style="aspect-ratio:16/10; margin:30px 0 4px">
+          <img src="assets/img/about-01.jpg" alt="Wayne Gallman and Saquon Barkley at Giants training camp">
+          <span class="cap">Giants training camp</span>
+        </div>
+
+        <div class="numgrid">
+          <div><b>3,416</b><small>College Rush Yards</small></div>
+          <div><b>34</b><small>College Rush TDs</small></div>
+          <div><b>2&times;</b><small>All-ACC (2nd Team)</small></div>
+          <div><b>1</b><small>National Title</small></div>
+        </div>
+
+        <ul class="timeline">
+          <li><span class="yr">2013</span><span class="ev">Signs with Clemson out of Grayson HS <em>&mdash; redshirt season</em></span></li>
+          <li><span class="yr">2015</span><span class="ev">1,514 rushing yards, 13 TD <em>&mdash; second-team All-ACC</em></span></li>
+          <li><span class="yr">2016</span><span class="ev">1,133 rushing yards, 17 TD <em>&mdash; second-team All-ACC</em></span></li>
+          <li><span class="yr">2017</span><span class="ev">CFP National Champion, Clemson 35&ndash;31 Alabama</span></li>
+          <li><span class="yr">2017</span><span class="ev">Drafted by the New York Giants <em>&mdash; Round 4, No. 140</em></span></li>
+          <li><span class="yr">2020</span><span class="ev">682 rushing yards, 6 TD <em>&mdash; career-best NFL season</em></span></li>
+          <li><span class="yr">2021&ndash;23</span><span class="ev">San Francisco, Atlanta, Minnesota, Kansas City, Seattle</span></li>
+          <li><span class="yr">2024</span><span class="ev">St. Louis BattleHawks, UFL</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sechead rv"><span class="num">05</span><h2 class="h-big">Let's Work</h2></div>
+    <div class="split">
+      <div class="rv">
+        <p class="lede">Brand partnerships, speaking engagements, appearances and media. Send the details and you'll get a real reply &mdash; usually within two business days.</p>
+        <div class="photo rv d2" data-slot="contact.jpg" style="aspect-ratio:16/9; margin-top:26px"><img src="assets/img/contact.jpg" alt="Wayne Gallman celebrating a touchdown for the Giants"><span class="cap">New York Giants</span></div>
+      </div>
+
+      <form id="contactForm" class="rv d1" novalidate>
+        <div class="frow">
+          <div class="field"><label for="f-name">Your Name</label><input id="f-name" name="name" type="text" required autocomplete="name"></div>
+          <div class="field"><label for="f-company">Company / Org</label><input id="f-company" name="company" type="text" autocomplete="organization"></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+          <div class="field"><label for="f-type">Inquiry Type</label>
+            <select id="f-type" name="inquiry_type">
+              <option>Brand Partnership</option>
+              <option>Speaking Engagement</option>
+              <option>Appearance</option>
+              <option>Media / Press</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="frow">
+          <div class="field"><label for="f-date">Date / Timeline</label><input id="f-date" name="timeline" type="text" placeholder=" "></div>
+          <div class="field"><label for="f-budget">Budget Range</label><input id="f-budget" name="budget" type="text" placeholder=" "></div>
+        </div>
+        <div class="field"><label for="f-msg">Tell us about the opportunity</label><textarea id="f-msg" name="message" required></textarea></div>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+        <div class="formfoot">
+          <span class="formnote" id="formStatus">Goes straight to the inbox</span>
+          <button class="btn" type="submit" id="submitBtn">Send Inquiry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="kicker">&copy; <span id="yr"></span> Wayne Gallman II &nbsp;<span class="dot">&bull;</span>&nbsp; All rights reserved</span>
+  <div class="socials" id="socials"></div>
+  <span class="kicker">Representation &mdash; <a href="mailto:rhahami@gmail.com">rhahami@gmail.com</a></span>
+</footer>
+
+<script>
+/* ============================================================================
+   ██  EDIT EVERYTHING IN THIS BLOCK — nothing below needs to be touched.  ██
+   ============================================================================ */
+const CONFIG = {
+
+  /* ---- 1. HIGHLIGHT CLIPS -------------------------------------------------
+     Drop .mp4 files into  assets/video/  and list them here in cut order.
+     Landscape (16:9) works best. Keep each clip 3–10s, no audio needed.
+     Web-optimise them: 1080p or 720p, H.264, under ~8 MB each.
+     Add or remove lines freely — the montage adapts.                        */
+  clips: [
+    { src: 'assets/video/clip-01.mp4', label: 'DOWNHILL' },
+    { src: 'assets/video/clip-02.mp4', label: 'OPEN FIELD' },
+    { src: 'assets/video/clip-03.mp4', label: 'THROUGH THE GAP' },
+    { src: 'assets/video/clip-04.mp4', label: 'THROUGH CONTACT' },
+    { src: 'assets/video/clip-05.mp4', label: 'END ZONE' },
+    { src: 'assets/video/clip-06.mp4', label: 'GOAL LINE' }
+  ],
+
+  /* ---- 2. FOLLOWER COUNTS -------------------------------------------------
+     Plain numbers, no commas. Update these whenever they move.
+     handle = what shows under the number. url = where the icon links.       */
+  social: {
+    instagram: { count: 0, handle: '@waynegallman9', url: 'https://instagram.com/waynegallman9' },
+    x:         { count: 0, handle: '@waynegallman',  url: 'https://x.com/waynegallman' },
+    linkedin:  { count: 0, handle: 'Wayne Gallman II', url: 'https://www.linkedin.com/in/' }
+  },
+  reachUpdated: 'Updated Aug 2026',   // small line next to "The Audience"
+
+  /* ---- 3. CONTACT FORM ----------------------------------------------------
+     Free key from https://web3forms.com — enter rhahami@gmail.com, they
+     email you an access key. Paste it below. That's the whole setup.
+     Until a key is here, the form falls back to opening an email draft.     */
+  web3formsKey: 'PASTE_YOUR_ACCESS_KEY_HERE',
+  fallbackEmail: 'rhahami@gmail.com',
+
+  /* ---- 4. CREDENTIAL TICKER ---------------------------------------------- */
+  ticker: [
+    'CFP National Champion — 2017',
+    '2× Second-Team All-ACC',
+    '2017 NFL Draft — Round 4, No. 140',
+    'New York Giants 2017–2020',
+    '3,416 Career College Rushing Yards',
+    '34 College Rushing Touchdowns'
+  ]
+};
+/* ==========================  END OF EDITABLE BLOCK  ========================= */
+
+
+/* ---------------------------------------------------------------- montage */
+(function montage(){
+  const stage = document.getElementById('montage');
+  const flash = document.getElementById('flash');
+  const ticks = document.getElementById('ticks');
+  const strip = document.getElementById('strip');
+  const clips = CONFIG.clips;
+  if(!clips.length) return;
+
+  const nodes = clips.map((c,i)=>{
+    const d = document.createElement('div');
+    d.className = 'cut';
+    const v = document.createElement('video');
+    v.src = c.src; v.muted = true; v.loop = true; v.playsInline = true;
+    v.autoplay = true; v.preload = 'auto'; v.setAttribute('disablepictureinpicture','');
+    // If the file isn't there yet, swap in a labelled placeholder panel.
+    v.addEventListener('error', ()=>{
+      v.remove();
+      const f = document.createElement('div');
+      f.className = 'fallback';
+      f.innerHTML = '<span>CLIP ' + String(i+1).padStart(2,'0') + ' — ' + c.label + '<br>drop ' + c.src.split('/').pop() + ' into assets/video/</span>';
+      d.appendChild(f);
+    });
+    d.appendChild(v);
+    stage.appendChild(d);
+    v.play().catch(()=>{});
+
+    const t = document.createElement('span');
+    t.className = 'tick'; ticks.appendChild(t);
+    return d;
+  });
+
+  // filmstrip: two passes of the same clips so the marquee loops seamlessly
+  for(let pass=0; pass<2; pass++){
+    clips.forEach((c,i)=>{
+      const f = document.createElement('div'); f.className = 'frame';
+      const v = document.createElement('video');
+      v.src = c.src; v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; v.preload='metadata';
+      v.addEventListener('error', ()=>{ v.remove();
+        const fb = document.createElement('div'); fb.className='fallback';
+        fb.innerHTML = '<span>' + String(i+1).padStart(2,'0') + '</span>'; f.appendChild(fb);
+      });
+      f.appendChild(v);
+      const b = document.createElement('b'); b.textContent = c.label; f.appendChild(b);
+      strip.appendChild(f);
+    });
+  }
+  // 12 simultaneous decodes will choke a phone — only run the strip on screen
+  new IntersectionObserver(es=>es.forEach(e=>{
+    strip.querySelectorAll('video').forEach(v=> e.isIntersecting ? v.play().catch(()=>{}) : v.pause());
+  }), {threshold:.02}).observe(strip);
+
+  // Cut rhythm, in ms. Long holds, then rapid-fire bursts — reads like an edit.
+  const RHYTHM = [2400,1600,420,420,420,2100,900,900,300,300,300,300,2600,1300,480,480,480,1900,700,700];
+  let idx = 0, step = 0, timer = null;
+  const tickEls = [...ticks.children];
+
+  function cut(){
+    const prev = idx;
+    idx = (idx + 1) % nodes.length;
+    const hold = RHYTHM[step % RHYTHM.length];
+    step++;
+
+    nodes[prev].classList.remove('on','punch');
+    nodes[idx].classList.add('on');
+    if(hold < 600) nodes[idx].classList.add('punch');       // fast cut = tighter push-in
+    tickEls.forEach((t,i)=> t.classList.toggle('on', i === idx));
+
+    // flash frame on the rapid bursts
+    if(hold <= 320){ flash.classList.remove('fire'); void flash.offsetWidth; flash.classList.add('fire'); }
+
+    // on slow holds, land on a different moment of the clip so it never repeats
+    if(hold > 1500){
+      const v = nodes[idx].querySelector('video');
+      if(v && v.duration && isFinite(v.duration) && v.duration > 2){
+        try { v.currentTime = Math.random() * (v.duration * 0.65); } catch(e){}
+      }
+    }
+    timer = setTimeout(cut, hold);
+  }
+  nodes[0].classList.add('on'); tickEls[0] && tickEls[0].classList.add('on');
+  timer = setTimeout(cut, RHYTHM[0]);
+
+  // pause the edit when the hero scrolls away (saves battery, keeps it smooth)
+  new IntersectionObserver(es=>es.forEach(e=>{
+    nodes.forEach(n=>{ const v = n.querySelector('video'); if(!v) return;
+      e.isIntersecting ? v.play().catch(()=>{}) : v.pause(); });
+    if(e.isIntersecting){ if(!timer) timer = setTimeout(cut, 900); }
+    else { clearTimeout(timer); timer = null; }
+  }), {threshold:.05}).observe(stage);
+
+  // broadcast timecode
+  const tc = document.getElementById('tc'); const t0 = Date.now();
+  const p2 = n => String(n).padStart(2,'0');
+  setInterval(()=>{
+    const ms = Date.now() - t0, s = Math.floor(ms/1000);
+    tc.textContent = p2(Math.floor(s/3600)) + ':' + p2(Math.floor(s/60)%60) + ':' + p2(s%60) + ':' + p2(Math.floor((ms%1000)/40));
+  }, 40);
+})();
+
+
+/* -------------------------------------------------------- social stat bar */
+(function stats(){
+  const ICONS = {
+    instagram:'<path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.8 3.8 0 01-1.38-.9 3.8 3.8 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.9 5.9 0 00-2.13 1.38A5.9 5.9 0 00.63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 002.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 002.13-1.38 5.9 5.9 0 001.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 00-1.38-2.13A5.9 5.9 0 0019.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32A6.16 6.16 0 0012 5.84zm0 10.16a4 4 0 110-8 4 4 0 010 8zm7.85-10.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>',
+    x:'<path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.46l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41z"/>',
+    linkedin:'<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>'
+  };
+  const NAMES = {instagram:'Instagram', x:'X / Twitter', linkedin:'LinkedIn'};
+  const S = CONFIG.social;
+  const grid = document.getElementById('statgrid');
+  const socials = document.getElementById('socials');
+  const order = ['instagram','x','linkedin'];
+  let total = 0;
+
+  order.forEach(k=>{
+    total += (S[k].count || 0);
+    const el = document.createElement('div');
+    el.className = 'stat';
+    el.innerHTML =
+      '<div class="plat"><svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS[k]+'</svg>'+
+      '<span class="kicker">'+NAMES[k]+'</span></div>'+
+      '<span class="n" data-to="'+(S[k].count||0)+'">0</span>'+
+      '<span class="sub">'+S[k].handle+'</span>';
+    if(S[k].url) el.style.cursor='pointer', el.onclick = ()=> window.open(S[k].url,'_blank','noopener');
+    grid.appendChild(el);
+
+    const a = document.createElement('a');
+    a.href = S[k].url || '#'; a.target='_blank'; a.rel='noopener'; a.setAttribute('aria-label',NAMES[k]);
+    a.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS[k]+'</svg>';
+    socials.appendChild(a);
+  });
+
+  const tot = document.createElement('div');
+  tot.className = 'stat total';
+  tot.innerHTML = '<div class="plat"><span class="kicker">Combined Reach</span></div>'+
+                  '<span class="n" data-to="'+total+'">0</span>'+
+                  '<span class="sub">Across all platforms</span>';
+  grid.appendChild(tot);
+
+  document.getElementById('reach-updated').textContent = CONFIG.reachUpdated || '';
+
+  // format + count up when scrolled into view
+  const fmt = n => n >= 1000000 ? (n/1000000).toFixed(n%1000000===0?0:1)+'M'
+                 : n >= 10000   ? Math.round(n/1000)+'K'
+                 : n >= 1000    ? (n/1000).toFixed(1)+'K'
+                 : String(n);
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return; io.unobserve(e.target);
+    const el = e.target, to = +el.dataset.to, dur = 1500, t0 = performance.now();
+    if(!to){ el.textContent = 'ADD COUNT'; el.classList.add('empty'); return; }
+    (function frame(now){
+      const p = Math.min(1,(now-t0)/dur), eased = 1 - Math.pow(1-p, 3);
+      el.textContent = fmt(Math.round(to*eased));
+      if(p<1) requestAnimationFrame(frame);
+    })(t0);
+  }), {threshold:.4});
+  grid.querySelectorAll('.n').forEach(n=>io.observe(n));
+})();
+
+
+/* ----------------------------------------------------------------- ticker */
+(function ticker(){
+  const t = document.getElementById('ticker');
+  const line = CONFIG.ticker.map(x=>'<span>'+x+'</span>').join('');
+  t.innerHTML = line + line;   // doubled for a seamless loop
+})();
+
+
+/* ------------------------------------------- photo slots / nav / reveals */
+document.querySelectorAll('.photo img').forEach(img=>{
+  const mark = ()=> img.closest('.photo').classList.add('is-empty');
+  img.addEventListener('error', mark);
+  if(img.complete && img.naturalWidth === 0) mark();
+});
+
+const nav = document.getElementById('nav');
+addEventListener('scroll', ()=> nav.classList.toggle('is-stuck', scrollY > 60), {passive:true});
+
+const rio = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); }
+}), {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(el=>rio.observe(el));
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+
+/* ------------------------------------------------------------------- form */
+(function form(){
+  const f = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+  const btn = document.getElementById('submitBtn');
+  const KEY = CONFIG.web3formsKey;
+
+  const say = (msg, cls) => { status.className = 'formstatus ' + (cls||''); status.textContent = msg; };
+
+  f.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(f).entries());
+    if(!data.name || !data.email || !data.message){ say('Name, email and message are required','err'); return; }
+
+    // No Web3Forms key yet? Fall back to an email draft so nothing is lost.
+    if(!KEY || KEY.indexOf('PASTE_YOUR') === 0){
+      const body = encodeURIComponent(
+        'Name: '+data.name+'\nCompany: '+(data.company||'—')+'\nEmail: '+data.email+
+        '\nType: '+data.inquiry_type+'\nTimeline: '+(data.timeline||'—')+
+        '\nBudget: '+(data.budget||'—')+'\n\n'+data.message);
+      location.href = 'mailto:'+CONFIG.fallbackEmail+'?subject='+
+        encodeURIComponent('['+data.inquiry_type+'] '+data.name)+'&body='+body;
+      say('Opening your email app…');
+      return;
+    }
+
+    btn.disabled = true; say('Sending…');
+    try{
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method:'POST',
+        headers:{'Content-Type':'application/json', Accept:'application/json'},
+        body: JSON.stringify(Object.assign({
+          access_key: KEY,
+          subject: '['+data.inquiry_type+'] '+data.name+' — waynegallman.com',
+          from_name: 'Wayne Gallman II — Website'
+        }, data))
+      });
+      const json = await res.json();
+      if(json.success){ f.reset(); say('Sent. You’ll hear back shortly.','ok'); }
+      else { say('Something went wrong — email '+CONFIG.fallbackEmail,'err'); }
+    }catch(err){
+      say('Network error — email '+CONFIG.fallbackEmail,'err');
+    }finally{ btn.disabled = false; }
+  });
+})();
+</script>
+</body>
+</html>
