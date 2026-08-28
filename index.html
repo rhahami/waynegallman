@@ -441,6 +441,58 @@ footer .kicker a:hover{color:var(--bone)}
 .socials svg{width:14px; height:14px; fill:var(--bone-dim); transition:fill .3s}
 .socials a:hover svg{fill:var(--bone)}
 
+/* ============================================================
+   MOBILE
+   Appended last so it wins the cascade without !important.
+   Fixes: dead vertical space, oversized copy, tall form fields,
+   stacked photo runs, and small tap targets.
+   ============================================================ */
+@media (max-width:760px){
+  /* respect notches in landscape, keep a sane gutter in portrait */
+  .wrap{padding:44px max(20px, env(safe-area-inset-left)) 48px max(20px, env(safe-area-inset-left))}
+  .nav{padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right))}
+
+  /* section headers were leaving a whole empty row on phones */
+  .sechead{margin-bottom:22px; gap:8px 14px}
+  #reach-updated{margin-left:0 !important}
+
+  /* ~45 characters a line instead of ~38 */
+  .lede{font-size:16px; line-height:1.56}
+  .bio p{font-size:16px; line-height:1.66}
+  .offer p,.card p{font-size:14px}
+
+  /* thumb-sized nav targets */
+  .navlinks a{padding:11px 0}
+
+  /* three stacked 4:3 photos was ~900px of scrolling — swipe instead */
+  .photorow{display:flex; grid-template-columns:none; gap:10px; overflow-x:auto;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+    padding-bottom:6px; scrollbar-width:none}
+  .photorow::-webkit-scrollbar{display:none}
+  .photorow .photo{flex:0 0 78%; scroll-snap-align:start}
+
+  /* keep the family shots side by side rather than two full screens */
+  .famrow{grid-template-columns:1fr 1fr}
+
+  /* the portrait was pushing the bio a full screen down */
+  .bio .portrait{aspect-ratio:auto; height:52vh}
+
+  /* form fields were ~150px tall each. 16px input text also stops iOS
+     from zooming the page on focus. */
+  .field input,.field textarea,.field select{padding:26px 0 12px; font-size:16px}
+  .field label{top:9px}
+  .field textarea{min-height:96px}
+  .formfoot{padding-top:18px}
+
+  /* tighter list rhythm */
+  .offer li{padding:15px 0}
+  .card{padding:22px 20px 26px}
+  .numgrid div{padding:18px 16px}
+}
+@media (max-width:400px){
+  .photorow .photo{flex:0 0 84%}
+}
+
 /* ---------- scroll reveal ---------- */
 .rv{opacity:0; transform:translateY(30px); transition:opacity .9s var(--ease), transform .9s var(--ease)}
 .rv.in{opacity:1; transform:none}
@@ -895,7 +947,7 @@ const CONFIG = {
   tot.className = 'stat total';
   tot.innerHTML = '<div class="plat"><span class="kicker">Combined Reach</span></div>'+
                   '<span class="n" data-to="'+total+'">0</span>'+
-                  '<span class="sub">Across all platforms</span>';
+                  '<span class="sub">All platforms</span>';
   grid.appendChild(tot);
 
   document.getElementById('reach-updated').textContent = CONFIG.reachUpdated || '';
