@@ -146,7 +146,8 @@ p{margin:0 0 1.05em}
    ============================================================ */
 .hero{position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end}
 .montage{
-  position:absolute; inset:0; overflow:hidden; background:#0A0B0C;
+  position:absolute; inset:0; overflow:hidden;
+  background:#0A0B0C url("assets/img/poster.jpg") center/cover no-repeat;
 }
 .montage .cut{
   position:absolute; inset:0; opacity:0;
@@ -733,89 +734,128 @@ const CONFIG = {
   const clips = CONFIG.clips;
   if(!clips.length) return;
 
+  // ---- build the stack. No src yet: clips are loaded ONE AT A TIME below, so
+  // the first one gets the whole connection budget instead of racing 17 others.
   const nodes = clips.map((c,i)=>{
-    const d = document.createElement('div');
-    d.className = 'cut';
+    const d = document.createElement('div'); d.className = 'cut';
     const v = document.createElement('video');
-    v.src = c.src; v.muted = true; v.loop = true; v.playsInline = true;
-    v.autoplay = true; v.preload = 'auto'; v.setAttribute('disablepictureinpicture','');
-    // If the file isn't there yet, swap in a labelled placeholder panel.
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none';
+    v.setAttribute('muted',''); v.setAttribute('playsinline','');
+    v.setAttribute('disablepictureinpicture','');
+    if(i === 0) v.poster = 'assets/img/poster.jpg';
     v.addEventListener('error', ()=>{
+      if(!v.parentNode) return;
       v.remove();
-      const f = document.createElement('div');
-      f.className = 'fallback';
-      f.innerHTML = '<span>CLIP ' + String(i+1).padStart(2,'0') + ' — ' + c.label + '<br>drop ' + c.src.split('/').pop() + ' into assets/video/</span>';
+      const f = document.createElement('div'); f.className = 'fallback';
+      f.innerHTML = '<span>CLIP ' + String(i+1).padStart(2,'0') + ' — ' + c.label +
+                    '<br>drop ' + c.src.split('/').pop() + ' into assets/video/</span>';
       d.appendChild(f);
     });
-    d.appendChild(v);
-    stage.appendChild(d);
-    v.play().catch(()=>{});
-
-    const t = document.createElement('span');
-    t.className = 'tick'; ticks.appendChild(t);
+    d.appendChild(v); stage.appendChild(d);
+    const t = document.createElement('span'); t.className = 'tick'; ticks.appendChild(t);
     return d;
   });
 
-  // filmstrip: two passes of the same clips so the marquee loops seamlessly
-  for(let pass=0; pass<2; pass++){
-    clips.forEach((c,i)=>{
-      const f = document.createElement('div'); f.className = 'frame';
-      const v = document.createElement('video');
-      v.src = c.src; v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; v.preload='metadata';
-      v.addEventListener('error', ()=>{ v.remove();
-        const fb = document.createElement('div'); fb.className='fallback';
-        fb.innerHTML = '<span>' + String(i+1).padStart(2,'0') + '</span>'; f.appendChild(fb);
-      });
-      f.appendChild(v);
-      const b = document.createElement('b'); b.textContent = c.label; f.appendChild(b);
-      strip.appendChild(f);
-    });
-  }
-  // 12 simultaneous decodes will choke a phone — only run the strip on screen
-  new IntersectionObserver(es=>es.forEach(e=>{
-    strip.querySelectorAll('video').forEach(v=> e.isIntersecting ? v.play().catch(()=>{}) : v.pause());
-  }), {threshold:.02}).observe(strip);
+  const videoAt = i => nodes[i].querySelector('video');
+  // A missing video means the fallback panel is showing — always safe to cut to.
+  const isReady = i => { const v = videoAt(i); return !v || v.readyState >= 3; };
 
-  // Cut rhythm, in ms. Long holds, then rapid-fire bursts — reads like an edit.
+  // ---- sequential loading: clip N starts downloading only once clip N-1 can play
+  function startLoading(i){
+    if(i >= nodes.length) return;
+    const v = videoAt(i);
+    if(!v){ startLoading(i+1); return; }
+    let advanced = false;
+    const next = () => { if(advanced) return; advanced = true; startLoading(i+1); };
+    v.preload = 'auto';
+    v.addEventListener('canplaythrough', next, { once:true });
+    v.addEventListener('error', next, { once:true });
+    setTimeout(next, 9000);            // never let one slow clip stall the chain
+    v.src = clips[i].src;
+    v.load();
+    v.play().catch(()=>{});
+  }
+  startLoading(0);
+
+  // ---- the edit. Long holds, then rapid-fire bursts.
   const RHYTHM = [2400,1600,420,420,420,2100,900,900,300,300,300,300,2600,1300,480,480,480,1900,700,700];
-  let idx = 0, step = 0, timer = null;
+  let idx = 0, step = 0, timer = null, started = false;
   const tickEls = [...ticks.children];
 
+  function nextReady(from){
+    for(let k = 1; k <= nodes.length; k++){
+      const i = (from + k) % nodes.length;
+      if(isReady(i)) return i;
+    }
+    return -1;
+  }
+
   function cut(){
+    const nxt = nextReady(idx);
+    // Nothing else buffered yet — hold on the current clip rather than cutting
+    // to a frozen frame. This is what keeps the first few seconds smooth.
+    if(nxt === -1 || nxt === idx){ timer = setTimeout(cut, 500); return; }
+
     const prev = idx;
-    idx = (idx + 1) % nodes.length;
-    const hold = RHYTHM[step % RHYTHM.length];
-    step++;
+    idx = nxt;
+    const hold = RHYTHM[step % RHYTHM.length]; step++;
 
     nodes[prev].classList.remove('on','punch');
     nodes[idx].classList.add('on');
-    if(hold < 600) nodes[idx].classList.add('punch');       // fast cut = tighter push-in
+    if(hold < 600) nodes[idx].classList.add('punch');
     tickEls.forEach((t,i)=> t.classList.toggle('on', i === idx));
 
-    // flash frame on the rapid bursts
     if(hold <= 320){ flash.classList.remove('fire'); void flash.offsetWidth; flash.classList.add('fire'); }
 
-    // on slow holds, land on a different moment of the clip so it never repeats
-    if(hold > 1500){
-      const v = nodes[idx].querySelector('video');
-      if(v && v.duration && isFinite(v.duration) && v.duration > 2){
-        try { v.currentTime = Math.random() * (v.duration * 0.65); } catch(e){}
-      }
-    }
+    const v = videoAt(idx);
+    if(v && v.paused) v.play().catch(()=>{});
     timer = setTimeout(cut, hold);
   }
-  nodes[0].classList.add('on'); tickEls[0] && tickEls[0].classList.add('on');
-  timer = setTimeout(cut, RHYTHM[0]);
 
-  // pause the edit when the hero scrolls away (saves battery, keeps it smooth)
+  // Don't start cutting off a page-load timer — wait until frame one is actually
+  // on screen, so a refresh never lands on black.
+  nodes[0].classList.add('on');
+  tickEls[0] && tickEls[0].classList.add('on');
+  const begin = () => { if(started) return; started = true; timer = setTimeout(cut, RHYTHM[0]); };
+  const first = videoAt(0);
+  if(first){ first.addEventListener('playing', begin, { once:true }); setTimeout(begin, 5000); }
+  else begin();
+
+  // pause the whole thing once the hero scrolls away
   new IntersectionObserver(es=>es.forEach(e=>{
-    nodes.forEach(n=>{ const v = n.querySelector('video'); if(!v) return;
+    nodes.forEach((n,i)=>{ const v = videoAt(i); if(!v) return;
       e.isIntersecting ? v.play().catch(()=>{}) : v.pause(); });
-    if(e.isIntersecting){ if(!timer) timer = setTimeout(cut, 900); }
+    if(e.isIntersecting){ if(started && !timer) timer = setTimeout(cut, 700); }
     else { clearTimeout(timer); timer = null; }
   }), {threshold:.05}).observe(stage);
 
-  // broadcast timecode
+  // ---- filmstrip: markup now, video only once it scrolls into view, so it
+  // never competes with the hero for bandwidth on first paint.
+  const stripVids = [];
+  for(let pass = 0; pass < 2; pass++){
+    clips.forEach((c,i)=>{
+      const f = document.createElement('div'); f.className = 'frame';
+      const v = document.createElement('video');
+      v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none';
+      v.setAttribute('muted',''); v.setAttribute('playsinline','');
+      v.poster = 'assets/img/poster.jpg';
+      v.addEventListener('error', ()=>{ if(!v.parentNode) return; v.remove();
+        const fb = document.createElement('div'); fb.className = 'fallback';
+        fb.innerHTML = '<span>' + String(i+1).padStart(2,'0') + '</span>'; f.appendChild(fb); });
+      f.appendChild(v);
+      const b = document.createElement('b'); b.textContent = c.label; f.appendChild(b);
+      strip.appendChild(f);
+      stripVids.push({ v, src: c.src });
+    });
+  }
+  let stripLoaded = false;
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting && !stripLoaded){
+      stripLoaded = true;
+      stripVids.forEach(({v,src})=>{ v.preload = 'auto'; v.src = src; });
+    }
+    stripVids.forEach(({v})=> e.isIntersecting ? v.play().catch(()=>{}) : v.pause());
+  }), {threshold:.02}).observe(strip);
 })();
 
 
