@@ -793,7 +793,11 @@ const CONFIG = {
   const flash = document.getElementById('flash');
   const ticks = document.getElementById('ticks');
   const strip = document.getElementById('strip');
-  const clips = CONFIG.clips;
+  const smallScreen = window.matchMedia('(max-width:760px)').matches;
+  const allClips = CONFIG.clips;
+  // iOS reloads the tab when too many decoders are alive at once. Cap the
+  // montage on phones; the filmstrip below still shows every clip as a still.
+  const clips = smallScreen ? allClips.slice(0, 4) : allClips;
   if(!clips.length) return;
 
   // ---- build the stack. No src yet: clips are loaded ONE AT A TIME below, so
@@ -836,7 +840,7 @@ const CONFIG = {
     setTimeout(next, 9000);            // never let one slow clip stall the chain
     v.src = clips[i].src;
     v.load();
-    v.play().catch(()=>{});
+    if(i === 0) v.play().catch(()=>{});   // only the visible clip ever plays
   }
   startLoading(0);
 
@@ -870,6 +874,9 @@ const CONFIG = {
 
     if(hold <= 320){ flash.classList.remove('fire'); void flash.offsetWidth; flash.classList.add('fire'); }
 
+    // exactly one decoder running at a time — a paused video still shows its
+    // last frame, so the cut looks identical and memory stays flat
+    const pv = videoAt(prev); if(pv && !pv.paused) pv.pause();
     const v = videoAt(idx);
     if(v && v.paused) v.play().catch(()=>{});
     timer = setTimeout(cut, hold);
@@ -887,7 +894,7 @@ const CONFIG = {
   // pause the whole thing once the hero scrolls away
   new IntersectionObserver(es=>es.forEach(e=>{
     nodes.forEach((n,i)=>{ const v = videoAt(i); if(!v) return;
-      e.isIntersecting ? v.play().catch(()=>{}) : v.pause(); });
+      (e.isIntersecting && i === idx) ? v.play().catch(()=>{}) : v.pause(); });
     if(e.isIntersecting){ if(started && !timer) timer = setTimeout(cut, 700); }
     else { clearTimeout(timer); timer = null; }
   }), {threshold:.05}).observe(stage);
@@ -897,10 +904,9 @@ const CONFIG = {
   // On phones the hero band is short, so the filmstrip is already on screen at
   // first paint and its six clips fight the hero for bandwidth. Use stills there:
   // same look, ~90KB instead of ~9MB, and the hero gets the whole connection.
-  const smallScreen = window.matchMedia('(max-width:760px)').matches;
   const stripVids = [];
   for(let pass = 0; pass < 2; pass++){
-    clips.forEach((c,i)=>{
+    allClips.forEach((c,i)=>{
       const f = document.createElement('div'); f.className = 'frame';
       const thumb = 'assets/img/thumb-' + String(i+1).padStart(2,'0') + '.jpg';
       if(smallScreen){
