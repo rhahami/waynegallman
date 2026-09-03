@@ -699,7 +699,8 @@ footer .kicker a:hover{color:var(--bone)}
         <div class="photo rv d2" data-slot="contact.jpg" style="aspect-ratio:16/9; margin-top:26px"><img src="assets/img/contact.jpg" alt="Wayne Gallman celebrating a touchdown for the Giants"><span class="cap">New York Giants</span></div>
       </div>
 
-      <form id="contactForm" class="rv d1" novalidate>
+      <form id="contactForm" class="rv d1" name="contact" method="POST" data-netlify="true" netlify-honeypot="botcheck" novalidate>
+        <input type="hidden" name="form-name" value="contact">
         <div class="frow">
           <div class="field"><label for="f-name">Your Name</label><input id="f-name" name="name" type="text" required autocomplete="name"></div>
           <div class="field"><label for="f-company">Company / Org</label><input id="f-company" name="company" type="text" autocomplete="organization"></div>
@@ -768,10 +769,14 @@ const CONFIG = {
   reachUpdated: 'Updated Aug 2026',   // small line next to "The Audience"
 
   /* ---- 3. CONTACT FORM ----------------------------------------------------
-     Free key from https://web3forms.com — enter rhahami@gmail.com, they
-     email you an access key. Paste it below. That's the whole setup.
-     Until a key is here, the form falls back to opening an email draft.     */
-  web3formsKey: 'PASTE_YOUR_ACCESS_KEY_HERE',
+     Submissions are handled by Netlify Forms — no key, no third party.
+     Two one-time settings in the Netlify dashboard make it work:
+       1. Forms -> Enable form detection, then redeploy
+       2. Configuration -> Notifications -> Form submission notifications
+          -> add an email notification to the address below
+     Every submission is also stored under Forms in the dashboard, so a
+     missed email is never a lost inquiry. fallbackEmail is used only if the
+     POST itself fails (offline, etc.).                                      */
   fallbackEmail: 'rhahami@gmail.com',
 
   /* ---- 4. CREDENTIAL TICKER ---------------------------------------------- */
@@ -1037,43 +1042,39 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   const f = document.getElementById('contactForm');
   const status = document.getElementById('formStatus');
   const btn = document.getElementById('submitBtn');
-  const KEY = CONFIG.web3formsKey;
-
   const say = (msg, cls) => { status.className = 'formstatus ' + (cls||''); status.textContent = msg; };
+  const draft = (data) => {
+    const body = encodeURIComponent(
+      'Name: '+data.name+'\nCompany: '+(data.company||'—')+'\nEmail: '+data.email+
+      '\nType: '+data.inquiry_type+'\nTimeline: '+(data.timeline||'—')+
+      '\nBudget: '+(data.budget||'—')+'\n\n'+data.message);
+    location.href = 'mailto:'+CONFIG.fallbackEmail+'?subject='+
+      encodeURIComponent('['+data.inquiry_type+'] '+data.name)+'&body='+body;
+  };
 
   f.addEventListener('submit', async e=>{
     e.preventDefault();
     const data = Object.fromEntries(new FormData(f).entries());
     if(!data.name || !data.email || !data.message){ say('Name, email and message are required','err'); return; }
 
-    // No Web3Forms key yet? Fall back to an email draft so nothing is lost.
-    if(!KEY || KEY.indexOf('PASTE_YOUR') === 0){
-      const body = encodeURIComponent(
-        'Name: '+data.name+'\nCompany: '+(data.company||'—')+'\nEmail: '+data.email+
-        '\nType: '+data.inquiry_type+'\nTimeline: '+(data.timeline||'—')+
-        '\nBudget: '+(data.budget||'—')+'\n\n'+data.message);
-      location.href = 'mailto:'+CONFIG.fallbackEmail+'?subject='+
-        encodeURIComponent('['+data.inquiry_type+'] '+data.name)+'&body='+body;
-      say('Opening your email app…');
-      return;
-    }
-
     btn.disabled = true; say('Sending…');
     try{
-      const res = await fetch('https://api.web3forms.com/submit', {
+      // Netlify captures same-origin POSTs from a form it has detected.
+      const body = new URLSearchParams();
+      body.append('form-name', 'contact');
+      Object.entries(data).forEach(([k,v]) => body.append(k, v));
+      const res = await fetch('/', {
         method:'POST',
-        headers:{'Content-Type':'application/json', Accept:'application/json'},
-        body: JSON.stringify(Object.assign({
-          access_key: KEY,
-          subject: '['+data.inquiry_type+'] '+data.name+' — waynegallman.com',
-          from_name: 'Wayne Gallman II — Website'
-        }, data))
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body: body.toString()
       });
-      const json = await res.json();
-      if(json.success){ f.reset(); say('Sent. You’ll hear back shortly.','ok'); }
-      else { say('Something went wrong — email '+CONFIG.fallbackEmail,'err'); }
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      f.reset();
+      say('Sent. You’ll hear back shortly.','ok');
     }catch(err){
-      say('Network error — email '+CONFIG.fallbackEmail,'err');
+      // never drop an inquiry silently — hand it to their mail app instead
+      say('Couldn’t send — opening your email app…','err');
+      draft(data);
     }finally{ btn.disabled = false; }
   });
 })();
